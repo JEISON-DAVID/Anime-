@@ -291,7 +291,7 @@ async function loadLatestEpisodes() {
 
   if (data?.success) {
     mainGrid.innerHTML = data.data.map(episode => `
-                    <div class="anime-card" onclick="window.location.href='/reproductor.html?id=${episode.url.split('/').pop()}'">
+                    <div class="anime-card" onclick="window.location.href='reproductor.html?id=${episode.url.split('/').pop()}'">
                         <div class="anime-thumb">
                             <img src="${episode.cover}" alt="${episode.title}">
                             <div class="episode-number">EP ${episode.number}</div>
