@@ -47,7 +47,7 @@ body {
 }
 
 .logo-text {
-    font-size: 1.5rem;
+    font-size: 16px;
     font-weight: 700;
     background: linear-gradient(45deg, var(--accent), #FFB4A2);
     -webkit-background-clip: text;
