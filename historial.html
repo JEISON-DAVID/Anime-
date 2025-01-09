@@ -5,67 +5,344 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANIME GALAXI - Historial</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-bg: #0B0F19;
+            --secondary-bg: #151A27;
+            --card-bg: #1B2032;
+            --text-primary: #ffffff;
+            --text-secondary: #8A8D93;
+            --accent: #FF4C29;
+            --accent-hover: #ff6347;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #0B0F19;
-            color: #ffffff;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: var(--secondary-bg);
+            padding: 2rem 1rem;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent), #FFB4A2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--card-bg);
+            color: var(--text-primary);
+        }
+
+        .nav-link i {
+            font-size: 1.25rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 240px;
             padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
         }
 
         h1 {
             font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #FF4C29;
+            color: var(--text-primary);
         }
 
-        .history-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .history-list li {
-            padding: 0.75rem 1rem;
-            background: #1B2032;
-            margin-bottom: 0.5rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-
-        .history-list li a {
-            text-decoration: none;
-            color: #FF4C29;
-        }
-
-        .back-button {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            background: #FF4C29;
+        .clear-history {
+            background: var(--accent);
             color: white;
-            text-decoration: none;
+            border: none;
+            padding: 0.5rem 1rem;
             border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .clear-history:hover {
+            background: var(--accent-hover);
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .history-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .history-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+
+        .anime-title {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            display: block;
+        }
+
+        .anime-title:hover {
+            color: var(--accent);
+        }
+
+        .watch-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .watch-info i {
+            color: var(--accent);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .empty-history {
+            text-align: center;
+            padding: 3rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            color: var(--text-secondary);
+        }
+
+        .empty-history i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+            }
+            
+            .logo-text, .nav-text {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .history-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Historial de Reproducciones</h1>
-    <ul class="history-list" id="historyList"></ul>
-    <a href="reproductor.html" class="back-button">← Volver al reproductor</a>
+    <nav class="sidebar">
+        <div class="logo">
+            <img src="copilot_image_1735090235652.jpeg" alt="Logo">
+            <span class="logo-text">ANIME GALAXI</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Inicio</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="explore-page.html" class="nav-link">
+                    <i class="fas fa-compass"></i>
+                    <span class="nav-text">Explorar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="anime-releases (1).html" class="nav-link">
+                    <i class="fas fa-calendar"></i>
+                    <span class="nav-text">Calendario</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="favorites-page.html" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="nav-text">Favoritos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="HORARIOS.html" class="nav-link">
+                    <i class="fas fa-calendar"></i>
+                    <span class="nav-text">Horarios</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/historial.html" class="nav-link active">
+                    <i class="fas fa-clock"></i>
+                    <span class="nav-text">Historial</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="header">
+            <h1>Historial de Reproducciones</h1>
+            <button class="clear-history" id="clearHistory">
+                <i class="fas fa-trash-alt"></i> Limpiar historial
+            </button>
+        </div>
+        
+        <div class="history-grid" id="historyList"></div>
+    </main>
 
     <script>
+        function formatDate(date) {
+            const now = new Date();
+            const diff = now - date;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor(diff / (1000 * 60));
+
+            if (days > 0) return `Hace ${days} día${days > 1 ? 's' : ''}`;
+            if (hours > 0) return `Hace ${hours} hora${hours > 1 ? 's' : ''}`;
+            if (minutes > 0) return `Hace ${minutes} minuto${minutes > 1 ? 's' : ''}`;
+            return 'Hace un momento';
+        }
+
         function renderHistory() {
             const history = JSON.parse(localStorage.getItem('watchHistory')) || [];
             const historyList = document.getElementById('historyList');
             
-            historyList.innerHTML = history.length 
-                ? history.map(item => `
-                    <li>
-                        <a href="${item.url}">${item.title}</a>
-                    </li>
-                `).join('')
-                : '<li>No hay reproducciones recientes.</li>';
+            if (history.length === 0) {
+                historyList.innerHTML = `
+                    <div class="empty-history">
+                        <i class="fas fa-history"></i>
+                        <h3>No hay reproducciones recientes</h3>
+                        <p>Los animes que veas aparecerán aquí</p>
+                    </div>
+                `;
+                return;
+            }
+
+            historyList.innerHTML = history.map(item => `
+                <div class="history-card">
+                    <div class="card-content">
+                        <a href="${item.url}" class="anime-title">
+                            ${item.title}
+                        </a>
+                        <div class="watch-info">
+                            <i class="fas fa-clock"></i>
+                            <span>${formatDate(new Date(item.timestamp || Date.now()))}</span>
+                        </div>
+                        <div class="watch-info">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Episodio ${item.episode || '1'}</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: ${item.progress || '0'}%"></div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
+
+        document.getElementById('clearHistory')?.addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que quieres limpiar todo el historial?')) {
+                localStorage.removeItem('watchHistory');
+                renderHistory();
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', renderHistory);
     </script>
