@@ -1,117 +1,130 @@
 # 🌌 ANIME GALAXI
 
 <div align="center">
-  <img src="path/to/your/logo.png" alt="ANIME GALAXI Logo" width="200px">
+  <img src="assets/images/logo.png" alt="ANIME GALAXI Logo" width="200px">
   
-  [![GitHub stars](https://img.shields.io/github/stars/yourusername/anime-galaxi?style=social)](https://github.com/yourusername/anime-galaxi/stargazers)
-  [![GitHub forks](https://img.shields.io/github/forks/yourusername/anime-galaxi?style=social)](https://github.com/yourusername/anime-galaxi/network/members)
-  [![GitHub issues](https://img.shields.io/github/issues/yourusername/anime-galaxi)](https://github.com/yourusername/anime-galaxi/issues)
-  [![GitHub license](https://img.shields.io/github/license/yourusername/anime-galaxi)](https://github.com/yourusername/anime-galaxi/blob/main/LICENSE)
+  [![Status](https://img.shields.io/badge/status-active-success.svg)]()
+  [![Made with Love](https://img.shields.io/badge/Made%20with-Love-ff69b4.svg)]()
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 </div>
 
-## 📝 Descripción
+## 🎯 Visión General
 
-ANIME GALAXI es una plataforma web moderna y elegante para ver anime en línea. Desarrollada con HTML, CSS y JavaScript vanilla, ofrece una experiencia de usuario fluida y responsive para los amantes del anime.
+ANIME GALAXI es una plataforma web moderna y elegante para streaming de anime, diseñada para proporcionar una experiencia de usuario excepcional. Construida con tecnologías web fundamentales y un diseño centrado en el usuario, ofrece una interfaz intuitiva y fluida para disfrutar del mejor contenido de anime.
 
-### ✨ Características Principales
+## ✨ Características Principales
 
-- 🎯 Interfaz moderna y minimalista
-- 🔍 Búsqueda en tiempo real de animes
-- 📱 Diseño completamente responsive
-- 🎨 Tema oscuro por defecto
-- 📺 Reproductor de video optimizado
-- 📅 Calendario de lanzamientos
-- ❤️ Sistema de favoritos
-- 🕒 Historial de visualización
+- **Diseño Moderno**: Interfaz elegante con tema oscuro y navegación intuitiva
+- **Catálogo Extenso**: Acceso a una amplia biblioteca de anime con actualizaciones regulares
+- **Reproductor Optimizado**: Experiencia de visualización fluida con múltiples opciones de calidad
+- **Sistema de Seguimiento**: Guarda tus animes favoritos y mantén un historial de visualización
+- **Calendario de Emisiones**: Mantente al día con los últimos lanzamientos y programación
+- **Búsqueda Avanzada**: Encuentra fácilmente tu contenido favorito con filtros y categorías
+- **Totalmente Responsive**: Experiencia optimizada en cualquier dispositivo
 
-## 🚀 Tecnologías Utilizadas
+## 🛠️ Tecnologías
 
-- HTML5
-- CSS3 (Variables CSS, Flexbox, Grid)
-- JavaScript (ES6+)
-- Font Awesome para iconos
-- Google Fonts (Poppins)
-- API REST para datos de anime
+- **Frontend**:
+  - HTML5 Semántico
+  - CSS3 (Flexbox, Grid, Variables CSS)
+  - JavaScript Vanilla (ES6+)
+  - Font Awesome 6.4.0
+  - Google Fonts (Poppins)
+  
+- **API y Datos**:
+  - REST API
+  - Local Storage para preferencias
+  - Manejo asíncrono de datos
 
-## 🛠️ Instalación
+## 📦 Estructura del Proyecto
 
-1. Clona el repositorio:
-```bash
-git clone https://github.com/yourusername/anime-galaxi.git
-```
-
-2. Navega al directorio del proyecto:
-```bash
-cd anime-galaxi
-```
-
-3. Abre `index.html` en tu navegador o usa un servidor local como Live Server.
-
-## 📱 Capturas de Pantalla
-
-<div align="center">
-  <img src="IMG-20250109-WA0002.jpg" alt="Página de inicio" width="400px">
-  <img src="path/to/screenshot2.png" alt="Página de exploración" width="400px">
-</div>
-
-## 🔧 Estructura del Proyecto
-
-```
+```plaintext
 anime-galaxi/
-├── index.html
-├── explore-page.html
-├── anime-releases.html
-├── favorites-page.html
-├── HORARIOS.html
-├── historial.html
-├── reproductor.html
+├── páginas/
+│   ├── index.html          # Página principal
+│   ├── explore-page.html   # Explorador de anime
+│   ├── reproductor.html    # Reproductor de video
+│   ├── favorites.html      # Gestión de favoritos
+│   ├── calendar.html       # Calendario de emisiones
+│   └── history.html        # Historial de visualización
 ├── assets/
-│   ├── images/
-│   └── icons/
-└── styles/
-    └── main.css
+│   ├── css/
+│   │   └── styles.css      # Estilos principales
+│   └── js/
+│       └── main.js         # Lógica principal
+└── README.md
 ```
 
-## 🌟 Características Detalladas
+## 🚀 Instalación y Uso
 
-### Página Principal
-- Grid responsive de últimos episodios
-- Barra de búsqueda con autocompletado
-- Navegación intuitiva mediante sidebar
+1. **Clonar el Repositorio**
+   ```bash
+   git clone https://github.com/tu-usuario/anime-galaxi.git
+   cd anime-galaxi
+   ```
 
-### Explorador
-- Filtros por género y temporada
-- Ordenamiento personalizado
-- Vista en grid y lista
+2. **Configuración del Entorno**
+   - Abre `index.html` en tu navegador preferido
+   - O utiliza un servidor local (recomendado):
+     ```bash
+     npx serve
+     ```
 
-### Sistema de Reproductor
-- Controles personalizados
-- Selección de calidad
+3. **Uso de la Plataforma**
+   - Navega por el catálogo de anime
+   - Utiliza los filtros para encontrar contenido específico
+   - Guarda tus series favoritas
+   - Disfruta del contenido
+
+## 📱 Características por Sección
+
+### 🏠 Página Principal
+- Últimos episodios añadidos
+- Tendencias actuales
+- Recomendaciones personalizadas
+- Búsqueda rápida
+
+### 🔍 Explorador
+- Filtros avanzados por:
+  - Género
+  - Temporada
+  - Estado de emisión
+  - Tipo de contenido
+- Vista en grid personalizable
+
+### 📺 Reproductor
+- Controles intuitivos
+- Múltiples servidores
+- Autoguardado de progreso
 - Modo teatro
-- Autoplay configurable
 
-## 🤝 Contribuir
+### ❤️ Sistema de Favoritos
+- Organización por categorías
+- Notificaciones de nuevos episodios
+- Sincronización con el historial
 
-1. Fork el proyecto
-2. Crea tu rama de características (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
+## 🤝 Contribución
+
+Las contribuciones son bienvenidas. Para cambios importantes:
+
+1. Haz fork del proyecto
+2. Crea una nueva rama (`git checkout -b feature/nueva-caracteristica`)
+3. Realiza tus cambios y commits (`git commit -m 'Añade nueva característica'`)
+4. Push a la rama (`git push origin feature/nueva-caracteristica`)
 5. Abre un Pull Request
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
-## 👨‍💻 Autor
-
-Tu Nombre - [@tutwitter](https://twitter.com/tutwitter)
-
-## 🙏 Agradecimientos
+## 💖 Agradecimientos
 
 - [AnimeFlv API](https://animeflv.ahmedrangel.com/api) por proporcionar los datos
-- [Font Awesome](https://fontawesome.com) por los iconos
-- Todos los contribuidores que han participado en este proyecto
+- Comunidad de desarrolladores y usuarios por su apoyo continuo
+- Contribuidores que han ayudado a mejorar la plataforma
 
 ---
 
-⭐️ Si te ha gustado este proyecto, ¡no olvides darle una estrella!
+<div align="center">
+  Desarrollado con ❤️ por el equipo de ANIME GALAXI
+</div>
