@@ -6,7 +6,39 @@
     <title>ANIME GALAXI - Reproductor</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Tu CSS existente */
         :root {
+            --primary-bg: #0B0F19;
+            --secondary-bg: #151A27;
+            --card-bg: #1B2032;
+            --text-primary: #ffffff;
+            --text-secondary: #8A8D93;
+            --accent: #FF4C29;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .player-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .history-link {
+            display: block;
+            margin-top: 1rem;
+            text-align: right;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+                :root {
             --primary-bg: #0B0F19;
             --secondary-bg: #151A27;
             --card-bg: #1B2032;
@@ -103,12 +135,14 @@
             border-radius: 8px;
             margin-bottom: 1rem;
         }
+        
+        
     </style>
 </head>
 <body>
     <div class="player-container">
-        <a href="prueba-detalles.html" class="back-button">← Volver al inicio</a>
-        
+        <a href="index.html" class="back-button">← Volver al inicio</a>
+
         <div class="player-header">
             <h1 class="episode-title" id="episodeTitle">Cargando...</h1>
         </div>
@@ -131,7 +165,7 @@
             const episodeId = urlParams.get('id');
             
             if (!episodeId) {
-                window.location.href = 'index.html';
+                window.location.href = 'prueba-detalles.html';
                 return;
             }
 
@@ -141,9 +175,9 @@
                 
                 if (data.success) {
                     currentEpisode = data.data;
-                    document.getElementById('episodeTitle').textContent = 
-                        `${data.data.title} - Episodio ${data.data.number}`;
+                    const episodeTitle = `${data.data.title} - Episodio ${data.data.number}`;
                     
+                    document.getElementById('episodeTitle').textContent = episodeTitle;
                     if (data.data.servers.length > 0) {
                         document.getElementById('videoPlayer').src = data.data.servers[0].embed;
                     }
@@ -155,22 +189,21 @@
                                 Servidor ${index + 1}
                             </button>
                         `).join('');
+
+                    addToHistory(episodeTitle, window.location.href);
                 }
             } catch (error) {
                 console.error('Error loading episode:', error);
             }
         }
 
-        function changeServer(index) {
-            if (!currentEpisode || !currentEpisode.servers[index]) return;
+        function addToHistory(title, url) {
+            let history = JSON.parse(localStorage.getItem('watchHistory')) || [];
             
-            const player = document.getElementById('videoPlayer');
-            const buttons = document.querySelectorAll('.server-button');
-            
-            buttons.forEach(btn => btn.classList.remove('active'));
-            buttons[index].classList.add('active');
-            
-            player.src = currentEpisode.servers[index].embed;
+            if (!history.some(item => item.url === url)) {
+                history.push({ title, url });
+                localStorage.setItem('watchHistory', JSON.stringify(history));
+            }
         }
 
         document.addEventListener('DOMContentLoaded', loadEpisode);
