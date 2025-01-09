@@ -211,18 +211,18 @@
 <body>
     <nav class="sidebar">
         <div class="logo">
-            <img src="/api/placeholder/40/40" alt="Logo">
+            <img src="/copilot_image_1735090235652.jpeg" alt="Logo">
             <span class="logo-text">ANIME GALAXI</span>
         </div>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="/index-page.html" class="nav-link active">
+                <a href="index.html" class="nav-link active">
                     <i class="fas fa-home"></i>
                     <span class="nav-text">Inicio</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/explore-page.html" class="nav-link">
+                <a href="explore-page.html" class="nav-link">
                     <i class="fas fa-compass"></i>
                     <span class="nav-text">Explorar</span>
                 </a>
@@ -234,7 +234,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/favorites-page.html" class="nav-link">
+                <a href="favorites-page.html" class="nav-link">
                     <i class="fas fa-heart"></i>
                     <span class="nav-text">Favoritos</span>
                 </a>
@@ -267,7 +267,7 @@
     if (e.key === 'Enter') {
         const query = e.target.value.trim();
         if (query) {
-            window.location.href = `/search-anime.html?query=${encodeURIComponent(query)}`;
+            window.location.href = `search-anime.html?query=${encodeURIComponent(query)}`;
         }
     }
 });

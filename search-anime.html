@@ -203,7 +203,7 @@
                     }
 
                     document.getElementById('searchResults').innerHTML = sortedResults.map(anime => `
-                        <div class="anime-card" onclick="window.location.href='/prueba-detalles.html?id=${anime.slug}'">
+                        <div class="anime-card" onclick="window.location.href='prueba-detalles.html?id=${anime.slug}'">
                             <div class="anime-thumb">
                                 <img src="${anime.cover}" alt="${anime.title}" 
                                      onerror="this.src='https://via.placeholder.com/200x300?text=No+Image'">
