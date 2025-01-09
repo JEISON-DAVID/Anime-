@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda - ANIME GALAXI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #0B0F19;
+            --secondary-bg: #151A27;
+            --card-bg: #1B2032;
+            --text-primary: #ffffff;
+            --text-secondary: #8A8D93;
+            --accent: #FF4C29;
+            --accent-hover: #ff6347;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: var(--secondary-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .anime-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .anime-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .anime-thumb {
+            position: relative;
+            padding-top: 140%;
+        }
+
+        .anime-thumb img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .anime-info {
+            padding: 1rem;
+        }
+
+        .anime-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .anime-meta {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            color: var(--text-secondary);
+        }
+
+        .loading {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+        }
+
+        .loading::after {
+            content: '';
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--secondary-bg);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .results-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <div class="search-bar">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Buscar anime...">
+        </div>
+        <div class="results-container" id="searchResults"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://animeflv.ahmedrangel.com/api';
+
+        async function fetchAPI(endpoint) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return null;
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('searchResults').innerHTML = '<div class="loading"></div>';
+        }
+
+        async function searchAnime() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) return;
+
+            showLoading();
+
+            try {
+                const data = await fetchAPI(`/search?query=${encodeURIComponent(query)}`);
+                
+                if (data?.success) {
+                    const sortedResults = data.data.media.sort((a, b) => {
+                        const aTitle = a.title.toLowerCase();
+                        const bTitle = b.title.toLowerCase();
+                        const searchQuery = query.toLowerCase();
+                        
+                        if (aTitle === searchQuery && bTitle !== searchQuery) return -1;
+                        if (bTitle === searchQuery && aTitle !== searchQuery) return 1;
+                        if (aTitle.startsWith(searchQuery) && !bTitle.startsWith(searchQuery)) return -1;
+                        if (bTitle.startsWith(searchQuery) && !aTitle.startsWith(searchQuery)) return 1;
+                        
+                        return b.rating - a.rating;
+                    });
+
+                    if (sortedResults.length === 0) {
+                        document.getElementById('searchResults').innerHTML = 
+                            '<div class="no-results">No se encontraron resultados para tu búsqueda</div>';
+                        return;
+                    }
+
+                    document.getElementById('searchResults').innerHTML = sortedResults.map(anime => `
+                        <div class="anime-card" onclick="window.location.href='/prueba-detalles.html?id=${anime.slug}'">
+                            <div class="anime-thumb">
+                                <img src="${anime.cover}" alt="${anime.title}" 
+                                     onerror="this.src='https://via.placeholder.com/200x300?text=No+Image'">
+                            </div>
+                            <div class="anime-info">
+                                <h3 class="anime-title">${anime.title}</h3>
+                                <div class="anime-meta">
+                                    <span>Rating: ${anime.rating}</span>
+                                    ${anime.type ? `<br><span>${anime.type}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error en la búsqueda:', error);
+                document.getElementById('searchResults').innerHTML = 
+                    '<div class="no-results">Ocurrió un error al buscar. Por favor, intenta de nuevo.</div>';
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchAnime();
+        });
+
+        // Búsqueda automática después de dejar de escribir
+        let searchTimeout;
+        document.getElementById('searchInput').addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(searchAnime, 500);
+        });
+    </script>
+</body>
+</html>

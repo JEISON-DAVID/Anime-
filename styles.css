@@ -1,0 +1,36 @@
+/* Estilos adicionales específicos para el reproductor */
+.player-container {
+    min-height: 100vh;
+    background: var(--primary-bg);
+    padding: 2rem;
+}
+
+.player-container .modal-content {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--secondary-bg);
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+/* Ajustes para la página de detalles */
+.anime-details.active {
+    display: block;
+    background: var(--secondary-bg);
+    border-radius: 24px;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .player-container {
+        padding: 0;
+    }
+
+    .player-container .modal-content {
+        width: 100%;
+        border-radius: 0;
+    }
+}

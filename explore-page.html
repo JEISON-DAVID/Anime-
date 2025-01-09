@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANIME GALAXI - Explorar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #0B0F19;
+            --secondary-bg: #151A27;
+            --card-bg: #1B2032;
+            --text-primary: #ffffff;
+            --text-secondary: #8A8D93;
+            --accent: #FF4C29;
+            --accent-hover: #ff6347;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: var(--secondary-bg);
+            padding: 2rem 1rem;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+            cursor: pointer;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent), #FFB4A2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--card-bg);
+            color: var(--text-primary);
+        }
+
+        .nav-link i {
+            font-size: 1.25rem;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .genre-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .genre-card:hover {
+            transform: translateY(-5px);
+            background: var(--accent);
+        }
+
+        .genre-content {
+            text-align: center;
+        }
+
+        .genre-content i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+        }
+
+        .loading::after {
+            content: '';
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--secondary-bg);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .anime-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            background: var(--card-bg);
+        }
+
+        .anime-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .anime-thumb {
+            position: relative;
+            padding-top: 140%;
+        }
+
+        .anime-thumb img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .anime-info {
+            padding: 1rem;
+        }
+
+        .anime-title {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .error-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            color: var(--accent);
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+                padding: 1rem 0.5rem;
+            }
+
+            .logo-text, .nav-text {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <img src="/api/placeholder/40/40" alt="Logo">
+            <span class="logo-text">ANIME GALAXI</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/index-page.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Inicio</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/explore-page.html" class="nav-link active">
+                    <i class="fas fa-compass"></i>
+                    <span class="nav-text">Explorar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="schedule.html" class="nav-link">
+                    <i class="fas fa-calendar"></i>
+                    <span class="nav-text">Calendario</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/favorites-page.html" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="nav-text">Favoritos</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="section-title">
+            <h2>Explorar por Géneros</h2>
+        </div>
+        <div class="grid-container" id="mainGrid"></div>
+    </main>
+
+    <script>
+        const API_BASE = 'https://animeflv.ahmedrangel.com/api';
+        const animeGenres = [
+            "Acción", "Aventura", "Comedia", "Drama", "Fantasía", "Música", 
+            "Mecha", "Misterio", "Psicológico", "Romance", "Sci-Fi", "Slice of Life",
+            "Deportes", "Sobrenatural", "Thriller"
+        ];
+
+        async function fetchAPI(endpoint) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return null;
+            }
+        }
+
+        function showLoading(element) {
+            element.innerHTML = '<div class="loading"></div>';
+        }
+
+        function loadGenres() {
+            const mainGrid = document.getElementById('mainGrid');
+            mainGrid.innerHTML = animeGenres.map(genre => `
+                <div class="genre-card" onclick="loadAnimesByGenre('${genre}')">
+                    <div class="genre-content">
+                        <i class="fas fa-tag"></i>
+                        <h3>${genre}</h3>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function loadAnimesByGenre(genre) {
+            const mainGrid = document.getElementById('mainGrid');
+            showLoading(mainGrid);
+            
+            try {
+                const data = await fetchAPI(`/browse?genre=${encodeURIComponent(genre)}`);
+                if (data?.success) {
+                    document.querySelector('.section-title h2').textContent = `Género: ${genre}`;
+                    
+                    mainGrid.innerHTML = data.data.map(anime => `
+                        <div class="anime-card" onclick="window.location.href='index.html?anime=${anime.slug}'">
+                            <div class="anime-thumb">
+                                <img src="${anime.cover}" alt="${anime.title}">
+                            </div>
+                            <div class="anime-info">
+                                <h3 class="anime-title">${anime.title}</h3>
+                                <div class="anime-meta">
+                                    <span>Rating: ${anime.rating}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error cargando animes por género:', error);
+                mainGrid.innerHTML = '<div class="error-message">Error cargando los animes. Por favor, intenta de nuevo.</div>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadGenres);
+    </script>
+</body>
+</html>
