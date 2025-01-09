@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANIME GALAXI - Estrenos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #0B0F19;
+            --secondary-bg: #151A27;
+            --card-bg: #1B2032;
+            --text-primary: #ffffff;
+            --text-secondary: #8A8D93;
+            --accent: #FF4C29;
+            --accent-hover: #ff6347;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: var(--secondary-bg);
+            padding: 2rem 1rem;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+            cursor: pointer;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent), #FFB4A2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--card-bg);
+            color: var(--text-primary);
+        }
+
+        .nav-link i {
+            font-size: 1.25rem;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s;
+        }
+
+        .tab-button:hover {
+            background: var(--accent-hover);
+        }
+
+        .tab-button.active {
+            background: var(--accent-hover);
+        }
+
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .anime-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+
+        .anime-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .anime-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .anime-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .anime-info {
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            color: var(--text-secondary);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2em;
+            color: var(--accent);
+        }
+
+        .error {
+            text-align: center;
+            color: var(--accent);
+            padding: 20px;
+        }
+
+        .genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .genre-tag {
+            background: var(--accent);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+                padding: 1rem 0.5rem;
+            }
+
+            .logo-text, .nav-text {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .anime-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo">
+            <img src="copilot_image_1735090235652.jpeg" alt="Logo">
+            <span class="logo-text">ANIME GALAXI</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Inicio</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="explore-page.html" class="nav-link">
+                    <i class="fas fa-compass"></i>
+                    <span class="nav-text">Explorar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="inde.html" class="nav-link active">
+                    <i class="fas fa-calendar"></i>
+                    <span class="nav-text">Calendario</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="favorites-page.html" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="nav-text">Favoritos</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="section-title">
+            <h2>Estrenos de Anime</h2>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="current">En Emisión</button>
+            <button class="tab-button" data-tab="upcoming">Próximos Estrenos</button>
+        </div>
+
+        <div id="animeGrid" class="anime-grid">
+            <div class="loading">Cargando animes...</div>
+        </div>
+    </main>
+
+    <script>
+        class AnimeAPI {
+            constructor() {
+                this.baseUrl = 'https://api.jikan.moe/v4';
+                this.currentTab = 'current';
+            }
+
+            async fetchAnimes(type) {
+                const endpoint = type === 'current' ? 'seasons/now' : 'seasons/upcoming';
+                try {
+                    const response = await fetch(`${this.baseUrl}/${endpoint}`);
+                    if (!response.ok) throw new Error('Error en la petición');
+                    const data = await response.json();
+                    return data.data;
+                } catch (error) {
+                    console.error('Error:', error);
+                    throw error;
+                }
+            }
+
+            createAnimeCard(anime) {
+                return `
+                    <div class="anime-card">
+                        <img class="anime-image" src="${anime.images.jpg.large_image_url}" alt="${anime.title}">
+                        <h3 class="anime-title">${anime.title}</h3>
+                        <p class="anime-info"><strong>Episodios:</strong> ${anime.episodes || 'Por determinar'}</p>
+                        <p class="anime-info"><strong>Estado:</strong> ${anime.status}</p>
+                        <p class="anime-info"><strong>Puntuación:</strong> ${anime.score || 'Sin puntuación'}</p>
+                        <div class="genres">
+                            ${anime.genres.map(genre => `
+                                <span class="genre-tag">${genre.name}</span>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            async displayAnimes(type) {
+                const grid = document.getElementById('animeGrid');
+                grid.innerHTML = '<div class="loading">Cargando animes...</div>';
+
+                try {
+                    const animes = await this.fetchAnimes(type);
+                    grid.innerHTML = animes.map(anime => this.createAnimeCard(anime)).join('');
+                } catch (error) {
+                    grid.innerHTML = '<div class="error">Error al cargar los animes. Por favor, intenta más tarde.</div>';
+                }
+            }
+
+            init() {
+                const tabs = document.querySelectorAll('.tab-button');
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        tabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        const type = tab.dataset.tab;
+                        this.displayAnimes(type);
+                    });
+                });
+
+                this.displayAnimes('current');
+            }
+        }
+
+        const animeApp = new AnimeAPI();
+        animeApp.init();
+    </script>
+</body>
+</html>
