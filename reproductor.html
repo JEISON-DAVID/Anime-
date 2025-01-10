@@ -6,7 +6,6 @@
     <title>ANIME GALAXI - Reproductor</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Tu CSS existente */
         :root {
             --primary-bg: #0B0F19;
             --secondary-bg: #151A27;
@@ -14,37 +13,7 @@
             --text-primary: #ffffff;
             --text-secondary: #8A8D93;
             --accent: #FF4C29;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--text-primary);
-            min-height: 100vh;
-        }
-
-        .player-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .history-link {
-            display: block;
-            margin-top: 1rem;
-            text-align: right;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-                :root {
-            --primary-bg: #0B0F19;
-            --secondary-bg: #151A27;
-            --card-bg: #1B2032;
-            --text-primary: #ffffff;
-            --text-secondary: #8A8D93;
-            --accent: #FF4C29;
+            --error: #FF3B3B;
         }
 
         * {
@@ -66,6 +35,72 @@
             padding: 2rem;
         }
 
+        .navigation-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .nav-buttons-container {
+            display: flex;
+            gap: 1rem;
+            margin-left: auto;
+        }
+
+        .episode-nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 2px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .episode-nav-button:hover:not(:disabled) {
+            background: var(--accent);
+        }
+
+        .episode-nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: var(--text-secondary);
+        }
+
+        .episode-nav-button .chevron {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 0.5rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            opacity: 0.9;
+        }
+
         .player-header {
             padding: 1.5rem;
             background: var(--card-bg);
@@ -75,7 +110,12 @@
 
         .episode-title {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .episode-info {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
         .video-container {
@@ -95,6 +135,43 @@
             border: none;
         }
 
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 10;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--secondary-bg);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         .servers-container {
             padding: 1.5rem;
             background: var(--card-bg);
@@ -102,9 +179,14 @@
             margin-top: 1rem;
         }
 
+        .servers-title {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
         .servers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 1rem;
         }
 
@@ -117,6 +199,10 @@
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .server-button:hover, .server-button.active {
@@ -124,43 +210,231 @@
             border-color: var(--accent);
         }
 
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+        .server-button.error {
+            background: var(--error);
+            border-color: var(--error);
+            opacity: 0.7;
+            cursor: not-allowed;
         }
-        
-        
+
+        .error-message {
+            color: var(--error);
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .navigation-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .nav-buttons-container {
+                margin-left: 0;
+            }
+
+            .episode-nav-button {
+                flex: 1;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="player-container">
-        <a href="prueba-detalles.html" class="back-button">← Volver al inicio</a>
+        <div class="navigation-wrapper">
+            <a href="prueba-detalles.html" class="back-button">
+                <span>←</span>
+                <span>Volver al inicio</span>
+            </a>
+            <div class="nav-buttons-container">
+                <button id="prevEpisode" class="episode-nav-button" disabled>
+                    <span class="chevron">❮</span>
+                    <span>Anterior</span>
+                </button>
+                <button id="nextEpisode" class="episode-nav-button" disabled>
+                    <span>Siguiente</span>
+                    <span class="chevron">❯</span>
+                </button>
+            </div>
+        </div>
 
         <div class="player-header">
             <h1 class="episode-title" id="episodeTitle">Cargando...</h1>
+            <p class="episode-info" id="episodeInfo"></p>
         </div>
 
         <div class="video-container">
             <iframe id="videoPlayer" allowfullscreen></iframe>
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="spinner"></div>
+                <p class="loading-text">Cargando reproductor...</p>
+            </div>
         </div>
 
         <div class="servers-container">
+            <h2 class="servers-title">Servidores disponibles</h2>
             <div class="servers-grid" id="serverList"></div>
+            <p class="error-message" id="errorMessage">
+                Ha ocurrido un error al cargar el servidor. Por favor, intenta con otro servidor.
+            </p>
         </div>
     </div>
 
     <script>
         const API_BASE = 'https://animeflv.ahmedrangel.com/api';
         let currentEpisode = null;
+        let currentAnimeId = null;
+        let totalEpisodes = 0;
+        let currentEpisodeNumber = 0;
+        let episodesList = [];
 
-        async function loadEpisode() {
+        function toggleLoading(show, message = 'Cargando reproductor...') {
+            const overlay = document.getElementById('loadingOverlay');
+            const loadingText = overlay.querySelector('.loading-text');
+            loadingText.textContent = message;
+            overlay.classList.toggle('active', show);
+        }
+
+        function showError(show, message = 'Ha ocurrido un error al cargar el servidor. Por favor, intenta con otro servidor.') {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.classList.toggle('active', show);
+        }
+
+        function updateNavigationButtons() {
+            const prevButton = document.getElementById('prevEpisode');
+            const nextButton = document.getElementById('nextEpisode');
+
+            prevButton.disabled = currentEpisodeNumber <= 1;
+            nextButton.disabled = currentEpisodeNumber >= totalEpisodes;
+        }
+
+        async function loadEpisode(episodeId) {
+            toggleLoading(true);
+            showError(false);
+
+            try {
+                const response = await fetch(`${API_BASE}/anime/episode/${episodeId}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentEpisode = data.data;
+                    currentEpisodeNumber = parseInt(data.data.number);
+                    currentAnimeId = data.data.animeId;
+
+                    try {
+                        const [animeResponse, episodesResponse] = await Promise.all([
+                            fetch(`${API_BASE}/anime/${currentAnimeId}`),
+                            fetch(`${API_BASE}/anime/${currentAnimeId}/episodes`)
+                        ]);
+
+                        const [animeData, episodesData] = await Promise.all([
+                            animeResponse.json(),
+                            episodesResponse.json()
+                        ]);
+
+                        if (animeData.success && episodesData.success) {
+                            totalEpisodes = animeData.data.episodes;
+                            episodesList = episodesData.data.sort((a, b) => parseInt(a.number) - parseInt(b.number));
+                            updateNavigationButtons();
+                        }
+                    } catch (error) {
+                        console.error('Error loading anime data:', error);
+                    }
+
+                    const episodeTitle = `${data.data.title} - Episodio ${data.data.number}`;
+                    document.getElementById('episodeTitle').textContent = episodeTitle;
+                    document.getElementById('episodeInfo').textContent = 
+                        `${totalEpisodes} episodios disponibles`;
+
+                    if (data.data.servers && data.data.servers.length > 0) {
+                        document.getElementById('videoPlayer').src = data.data.servers[0].embed;
+                    }
+
+                    document.getElementById('serverList').innerHTML = 
+                        data.data.servers.map((server, index) => {
+                            const serverName = server.name || `Servidor ${index + 1}`;
+                            return `
+                                <button class="server-button ${index === 0 ? 'active' : ''}" 
+                                        onclick="changeServer(${index})">
+                                    ${serverName}
+                                </button>
+                            `;
+                        }).join('');
+
+                    addToHistory(episodeTitle, window.location.href);
+                }
+            } catch (error) {
+                console.error('Error loading episode:', error);
+                showError(true, 'Error al cargar el episodio. Por favor, intenta recargar la página.');
+            } finally {
+                toggleLoading(false);
+            }
+        }
+
+        async function changeServer(index) {
+            if (currentEpisode && currentEpisode.servers[index]) {
+                toggleLoading(true, 'Cambiando servidor...');
+                showError(false);
+
+                const buttons = document.querySelectorAll('.server-button');
+                buttons.forEach(btn => btn.classList.remove('active', 'error'));
+
+                try {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    document.getElementById('videoPlayer').src = currentEpisode.servers[index].embed;
+                    buttons[index].classList.add('active');
+                } catch (error) {
+                    console.error('Error changing server:', error);
+                    buttons[index].classList.add('error');
+                    showError(true);
+                } finally {
+                    toggleLoading(false);
+                }
+            }
+        }
+
+        async function navigateToEpisode(direction) {
+            const newEpisodeNumber = currentEpisodeNumber + direction;
+            
+            if (newEpisodeNumber < 1 || newEpisodeNumber > totalEpisodes) {
+                return;
+            }
+
+            try {
+                const nextEpisode = episodesList.find(ep => parseInt(ep.number) === newEpisodeNumber);
+                if (nextEpisode) {
+                    toggleLoading(true, 'Cargando episodio...');
+                    window.history.pushState({}, '', `?id=${nextEpisode.id}`);
+                    await loadEpisode(nextEpisode.id);
+                }
+            } catch (error) {
+                console.error('Error navigating to episode:', error);
+                showError(true, 'Error al cambiar de episodio. Por favor, intenta de nuevo.');
+            }
+        }
+
+        function addToHistory(title, url) {
+            let history = JSON.parse(localStorage.getItem('watchHistory')) || [];
+            const maxHistory = 20;
+            
+            history = history.filter(item => item.url !== url);
+            history.unshift({ title, url, timestamp: Date.now() });
+            
+            if (history.length > maxHistory) {
+                history = history.slice(0, maxHistory);
+            }
+            
+            localStorage.setItem('watchHistory', JSON.stringify(history));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const episodeId = urlParams.get('id');
             
@@ -169,44 +443,11 @@
                 return;
             }
 
-            try {
-                const response = await fetch(`${API_BASE}/anime/episode/${episodeId}`);
-                const data = await response.json();
-                
-                if (data.success) {
-                    currentEpisode = data.data;
-                    const episodeTitle = `${data.data.title} - Episodio ${data.data.number}`;
-                    
-                    document.getElementById('episodeTitle').textContent = episodeTitle;
-                    if (data.data.servers.length > 0) {
-                        document.getElementById('videoPlayer').src = data.data.servers[0].embed;
-                    }
+            document.getElementById('prevEpisode').addEventListener('click', () => navigateToEpisode(-1));
+            document.getElementById('nextEpisode').addEventListener('click', () => navigateToEpisode(1));
 
-                    document.getElementById('serverList').innerHTML = 
-                        data.data.servers.map((server, index) => `
-                            <button class="server-button ${index === 0 ? 'active' : ''}" 
-                                    onclick="changeServer(${index})">
-                                Servidor ${index + 1}
-                            </button>
-                        `).join('');
-
-                    addToHistory(episodeTitle, window.location.href);
-                }
-            } catch (error) {
-                console.error('Error loading episode:', error);
-            }
-        }
-
-        function addToHistory(title, url) {
-            let history = JSON.parse(localStorage.getItem('watchHistory')) || [];
-            
-            if (!history.some(item => item.url === url)) {
-                history.push({ title, url });
-                localStorage.setItem('watchHistory', JSON.stringify(history));
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', loadEpisode);
+            loadEpisode(episodeId);
+        });
     </script>
 </body>
 </html>
