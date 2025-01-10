@@ -104,11 +104,11 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 ## 👨‍💻 Autor
 
-Tu Nombre - [@tutwitter](https://twitter.com/tutwitter)
+JEISON - [@tutwitter](https://twitter.com/tutwitter)
 
 ## 🙏 Agradecimientos
 
-- [AnimeFlv API](https://animeflv.ahmedrangel.com/api) por proporcionar los datos
+- [Unofficial AnimeFLV API](https://animeflv.ahmedrangel.com/api) por proporcionar los datos
 - [Font Awesome](https://fontawesome.com) por los iconos
 - Todos los contribuidores que han participado en este proyecto
 
