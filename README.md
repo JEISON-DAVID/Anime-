@@ -1,7 +1,7 @@
 # 🌌 ANIME GALAXI
 
 <div align="center">
-  <img src="ANIME.png" alt="ANIME GALAXI Logo" width="200px">
+  <img src="copilot_image_1735090235652.jpeg" alt="ANIME GALAXI Logo" width="200px">
   
   [![GitHub stars](https://img.shields.io/github/stars/yourusername/anime-galaxi?style=social)](https://github.com/yourusername/anime-galaxi/stargazers)
   [![GitHub forks](https://img.shields.io/github/forks/yourusername/anime-galaxi?style=social)](https://github.com/yourusername/anime-galaxi/network/members)
