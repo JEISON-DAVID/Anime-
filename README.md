@@ -50,7 +50,7 @@ cd anime-galaxi
 ## 📱 Capturas de Pantalla
 
 <div align="center">
-  <img src="IMG-20250109-WA0002.jpg" alt="Página de inicio" width="400px">
+  <img src="IMG-20250110-WA0006.jpg" alt="Página de inicio" width="400px">
   <img src="path/to/screenshot2.png" alt="Página de exploración" width="400px">
 </div>
 
