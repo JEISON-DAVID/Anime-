@@ -37,12 +37,12 @@ ANIME GALAXI es una plataforma web moderna y elegante para ver anime en línea. 
 
 1. Clona el repositorio:
 ```bash
-git clone https://github.com/JEISON-DAVID/anime-galaxi.git
+git clone https://github.com/JEISON-DAVID/Anime-.git
 ```
 
 2. Navega al directorio del proyecto:
 ```bash
-cd anime-galaxi
+cd anime-
 ```
 
 3. Abre `index.html` en tu navegador o usa un servidor local como Live Server.
