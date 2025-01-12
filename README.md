@@ -57,7 +57,7 @@ cd anime-
   <img src="IMG-20250112-WA0012.jpg" alt="Página de detalles" width="400px">
 
 
-  IMG-20250112-WA0011.jpg
+ 
 </div>
 
 ## 🔧 Estructura del Proyecto
