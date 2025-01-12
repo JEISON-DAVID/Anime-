@@ -58,6 +58,7 @@ cd anime-
 
 
                     
+                    
 </div>
 
 ## 🔧 Estructura del Proyecto
