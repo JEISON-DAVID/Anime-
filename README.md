@@ -53,8 +53,8 @@ cd anime-
   <img src="IMG-20250110-WA0006.jpg" alt="Página de inicio" width="400px">
   <img src="IMG-20250112-WA0009.jpg" alt="Página de historial" width="400px">
   <img src="IMG-20250112-WA0007.jpg" alt="Página de reproductor" width="400px">
-  <img src="IMG-20250112-WA0011.jpg" alt="Página de historial" width="400px">
-  <img src="IMG-20250112-WA0012.jpg" alt="Página de reproductor" width="400px">
+  <img src="IMG-20250112-WA0011.jpg" alt="Página de buscador" width="400px">
+  <img src="IMG-20250112-WA0012.jpg" alt="Página de detalles" width="400px">
 
 
   IMG-20250112-WA0011.jpg
