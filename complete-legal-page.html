@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentación Legal - Anime Galaxi</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <title>Documentación Legal - ANIME GALAXI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #6c5ce7;
-            --secondary-color: #a29bfe;
-            --text-color: #2d3436;
-            --bg-color: #f5f6fa;
-            --accent-color: #fd79a8;
-            --warning-color: #ff7675;
-            --success-color: #00b894;
+            --primary-bg: #0B0F19;
+            --secondary-bg: #151A27;
+            --card-bg: #1B2032;
+            --text-primary: #ffffff;
+            --text-secondary: #8A8D93;
+            --accent: #FF4500;
+            --accent-hover: #FF6B00;
         }
 
         * {
@@ -23,26 +24,113 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
             line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: var(--secondary-bg);
+            padding: 2rem 1rem;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #FF4500 0%, #FF6B00 25%, #FF8533 50%, #FFA500 75%, #FFB732 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            text-shadow: 0 0 20px rgba(255, 69, 0, 0.1);
+            letter-spacing: 2px;
+        }
+
+        .logo-text::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            z-index: -1;
+            background: linear-gradient(45deg, #FF4500 0%, #FF8533 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.3;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            right: -10px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #FF4500, transparent);
+            transform: translateY(15px);
+            opacity: 0.3;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--card-bg);
+            color: var(--accent);
+        }
+
+        .nav-link i {
+            font-size: 1.25rem;
+        }
+
+        .main-content {
+            margin-left: 240px;
             padding: 2rem;
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 4rem 2rem;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
             text-align: center;
-            margin-bottom: 3rem;
-            border-radius: 0 0 50px 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-bottom: 3px solid var(--accent);
         }
 
         .nav-tabs {
@@ -55,18 +143,23 @@
         .tab-button {
             padding: 1rem 2rem;
             border: none;
-            background: white;
-            border-radius: 10px;
+            background: var(--secondary-bg);
+            color: var(--text-primary);
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
         }
 
         .tab-button.active {
-            background: var(--primary-color);
+            background: var(--accent);
             color: white;
-            transform: translateY(-3px);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: var(--card-bg);
+            color: var(--accent);
         }
 
         .tab-content {
@@ -79,26 +172,27 @@
         }
 
         .section {
-            background: white;
+            background: var(--card-bg);
             padding: 2rem;
             margin-bottom: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 12px;
             transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 69, 0, 0.1);
         }
 
         .section:hover {
             transform: translateY(-5px);
+            border-color: var(--accent);
         }
 
         h1, h2, h3 {
-            color: var(--primary-color);
+            color: var(--accent);
             margin-bottom: 1.5rem;
         }
 
         h2 {
             padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--secondary-color);
+            border-bottom: 2px solid var(--accent);
         }
 
         .content-list {
@@ -110,53 +204,53 @@
             margin-bottom: 1rem;
             padding-left: 1.5rem;
             position: relative;
+            color: var(--text-secondary);
         }
 
         .content-list li::before {
             content: "•";
-            color: var(--accent-color);
+            color: var(--accent);
             font-size: 1.5rem;
             position: absolute;
             left: 0;
         }
 
-        .contact-info {
-            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin-top: 2rem;
-        }
-
         .highlight-box {
-            border-left: 4px solid var(--accent-color);
+            border-left: 4px solid var(--accent);
             padding: 1rem;
             margin: 1rem 0;
-            background: rgba(108, 92, 231, 0.1);
-            border-radius: 0 10px 10px 0;
+            background: rgba(255, 69, 0, 0.1);
+            border-radius: 0 12px 12px 0;
         }
 
         .warning-box {
-            background: rgba(255, 118, 117, 0.1);
-            border-left: 4px solid var(--warning-color);
+            background: rgba(255, 69, 0, 0.1);
+            border-left: 4px solid var(--accent);
             padding: 1rem;
             margin: 1rem 0;
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .contact-info {
+            background: var(--secondary-bg);
+            color: var(--text-primary);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            border: 1px solid var(--accent);
         }
 
         .footer {
             text-align: center;
             padding: 2rem;
             margin-top: 3rem;
-            color: var(--text-color);
-            opacity: 0.8;
+            color: var(--text-secondary);
         }
 
         .last-updated {
             text-align: right;
             font-style: italic;
-            color: var(--text-color);
-            opacity: 0.7;
+            color: var(--text-secondary);
             margin-top: 2rem;
         }
 
@@ -165,15 +259,22 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            
-            .header {
-                padding: 2rem 1rem;
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+                padding: 1rem 0.5rem;
             }
 
+            .logo-text, .nav-text {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
             .nav-tabs {
                 flex-direction: column;
             }
@@ -182,28 +283,85 @@
                 width: 100%;
                 text-align: center;
             }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header" data-aos="fade-down">
-        <h1>Documentación Legal</h1>
-        <p>Anime Galaxi - Términos, Condiciones y Políticas</p>
-    </div>
+    <nav class="sidebar">
+        <div class="logo">
+            <span class="logo-text" data-text="ANIME GALAXI">ANIME GALAXI</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Inicio</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="explore-page.html" class="nav-link">
+                    <i class="fas fa-compass"></i>
+                    <span class="nav-text">Explorar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="anime-releases (1).html" class="nav-link">
+                    <i class="fas fa-calendar"></i>
+                    <span class="nav-text">Calendario</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="favorites-page.html" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="nav-text">Favoritos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="HORARIOS.html" class="nav-link">
+                    <i class="fas fa-calendar"></i>
+                    <span class="nav-text">HORARIOS</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="historial.html" class="nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span class="nav-text">Historial</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="complete-legal-page.html" class="nav-link active">
+                    <i class="fas fa-shield"></i>
+                    <span class="nav-text">Legal</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 
-    <div class="container">
-        <div class="nav-tabs" data-aos="fade-up">
+    <main class="main-content">
+        <div class="header">
+            <h1>Documentación Legal</h1>
+            <p>ANIME GALAXI - Términos, Condiciones y Políticas</p>
+        </div>
+
+        <div class="nav-tabs">
             <button class="tab-button active" onclick="showTab('dmca')">DMCA</button>
             <button class="tab-button" onclick="showTab('disclaimer')">Disclaimer</button>
             <button class="tab-button" onclick="showTab('privacy')">Privacidad</button>
             <button class="tab-button" onclick="showTab('terms')">Términos de Uso</button>
         </div>
 
-        <!-- DMCA Section -->
-        <div id="dmca" class="tab-content active" data-aos="fade-up">
+        <div id="dmca" class="tab-content active">
             <div class="section">
                 <h2>Política DMCA</h2>
-                <p>Anime Galaxi respeta los derechos de propiedad intelectual y cumple con la Ley de Derechos de Autor del Milenio Digital (DMCA).</p>
+                <p>ANIME GALAXI respeta los derechos de propiedad intelectual y cumple con la Ley de Derechos de Autor del Milenio Digital (DMCA).</p>
                 
                 <div class="highlight-box">
                     <h3>Proceso de Notificación DMCA</h3>
@@ -225,13 +383,12 @@
             </div>
         </div>
 
-        <!-- Disclaimer Section -->
-        <div id="disclaimer" class="tab-content" data-aos="fade-up">
+        <div id="disclaimer" class="tab-content">
             <div class="section">
                 <h2>Aviso Legal y Exención de Responsabilidad</h2>
                 
                 <div class="warning-box">
-                    <p>Anime Galaxi opera como una plataforma de indexación y no almacena ningún contenido protegido por derechos de autor en sus servidores.</p>
+                    <p>ANIME GALAXI opera como una plataforma de indexación y no almacena ningún contenido protegido por derechos de autor en sus servidores.</p>
                 </div>
 
                 <h3>Contenido y Enlaces</h3>
@@ -251,8 +408,7 @@
             </div>
         </div>
 
-        <!-- Privacy Section -->
-        <div id="privacy" class="tab-content" data-aos="fade-up">
+        <div id="privacy" class="tab-content">
             <div class="section">
                 <h2>Política de Privacidad</h2>
                 
@@ -267,39 +423,62 @@
                 <ul class="content-list">
                     <li>Mejorar la experiencia del usuario</li>
                     <li>Mantener la seguridad del sitio</li>
+                    <li>Cumplir</antArtifact>
                     <li>Cumplir con obligaciones legales</li>
+                    <li>Proporcionar actualizaciones y noticias relevantes</li>
                 </ul>
 
                 <div class="highlight-box">
                     <h3>Sus Derechos</h3>
-                    <p>Tiene derecho a acceder, corregir o eliminar sus datos personales. Contacte con nosotros para ejercer estos derechos.</p>
+                    <p>Tiene derecho a:</p>
+                    <ul class="content-list">
+                        <li>Acceder a sus datos personales almacenados</li>
+                        <li>Solicitar la corrección de información inexacta</li>
+                        <li>Solicitar la eliminación de sus datos</li>
+                        <li>Oponerse al procesamiento de sus datos</li>
+                        <li>Retirar su consentimiento en cualquier momento</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h3>Seguridad de Datos</h3>
+                    <p>Implementamos medidas de seguridad técnicas y organizativas para proteger sus datos personales contra el acceso no autorizado, la modificación, divulgación o destrucción no autorizada.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Terms Section -->
-        <div id="terms" class="tab-content" data-aos="fade-up">
+        <div id="terms" class="tab-content">
             <div class="section">
                 <h2>Términos de Uso</h2>
                 
                 <h3>Uso Aceptable</h3>
                 <ul class="content-list">
-                    <li>No realizar actividades ilegales</li>
-                    <li>No intentar acceder sin autorización</li>
+                    <li>No realizar actividades ilegales o fraudulentas</li>
+                    <li>No intentar acceder sin autorización a nuestros sistemas</li>
                     <li>No distribuir malware o código dañino</li>
-                    <li>No recolectar información de usuarios</li>
+                    <li>No recolectar información de usuarios sin autorización</li>
+                    <li>No utilizar el servicio para fines comerciales sin permiso</li>
                 </ul>
 
-                <h3>Terminación</h3>
+                <h3>Cuentas de Usuario</h3>
                 <ul class="content-list">
-                    <li>Podemos terminar el acceso por violación de términos</li>
-                    <li>Los usuarios pueden terminar su uso en cualquier momento</li>
+                    <li>Los usuarios son responsables de mantener la confidencialidad de sus credenciales</li>
+                    <li>Las cuentas no pueden ser compartidas o transferidas</li>
+                    <li>Los usuarios deben proporcionar información precisa y actualizada</li>
+                    <li>Nos reservamos el derecho de suspender o terminar cuentas que violen los términos</li>
                 </ul>
 
                 <div class="warning-box">
                     <h3>Contenido del Usuario</h3>
-                    <p>Los usuarios son responsables de cualquier contenido que publiquen o compartan en el sitio.</p>
+                    <p>Los usuarios son completamente responsables de cualquier contenido que publiquen o compartan en el sitio. Nos reservamos el derecho de eliminar contenido que viole nuestras políticas o la ley aplicable.</p>
                 </div>
+
+                <h3>Terminación</h3>
+                <ul class="content-list">
+                    <li>Podemos terminar o suspender el acceso al servicio inmediatamente, sin previo aviso, por cualquier motivo</li>
+                    <li>Los usuarios pueden terminar su uso del servicio en cualquier momento</li>
+                    <li>Todas las disposiciones que deban sobrevivir a la terminación sobrevivirán</li>
+                </ul>
             </div>
         </div>
 
@@ -307,19 +486,12 @@
             Última actualización: 16 de Enero, 2025
         </div>
 
-        <footer class="footer" data-aos="fade-up">
-            <p>© 2025 Anime Galaxi. Todos los derechos reservados.</p>
+        <footer class="footer">
+            <p>© 2025 ANIME GALAXI. Todos los derechos reservados.</p>
         </footer>
-    </div>
+    </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
-        });
-
         function showTab(tabId) {
             // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(tab => {
@@ -333,7 +505,7 @@
 
             // Show selected tab content
             document.getElementById(tabId).classList.add('active');
-
+            
             // Add active class to clicked button
             event.target.classList.add('active');
         }
