@@ -15,6 +15,7 @@ ANIME GALAXI es una plataforma web moderna y elegante para ver anime en línea. 
 
 ### ✨ Características Principales
 
+-  🥷 sistema de login y registro 
 - 🎯 Interfaz moderna y minimalista
 - 🔍 Búsqueda en tiempo real de animes
 - 📱 Diseño completamente responsive
