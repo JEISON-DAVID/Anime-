@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANIME GALAXI - Autenticación</title>
+    <title>ANIME GALAXI - Bienvenido</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,8 +15,6 @@
             --text-secondary: #8A8D93;
             --accent: #FF4500;
             --accent-hover: #FF6B00;
-            --error: #ff4444;
-            --success: #00C851;
         }
 
         * {
@@ -27,628 +25,206 @@
         }
 
         body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            background: var(--primary-bg);
-            position: relative;
-            overflow: hidden;
+            padding: 1rem 5%;
+            background-color: var(--secondary-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.15;
-            z-index: 1;
-        }
-
-        .auth-container {
-            position: relative;
-            z-index: 2;
-            background: rgba(27, 32, 50, 0.95);
-            padding: 2rem;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .logo-container {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .logo-text {
-            font-size: 2rem;
+        .logo {
+            font-size: 1.75rem;
             font-weight: 800;
             text-transform: uppercase;
             background: linear-gradient(45deg, #FF4500, #FF6B00, #FF8533, #FFA500);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            animation: glow 2s ease-in-out infinite;
         }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-            position: relative;
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
         }
 
-        .form-input {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
-            background: var(--secondary-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.2);
-            outline: none;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .password-toggle:hover {
-            color: var(--accent);
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-        }
-
-        .submit-btn:disabled {
-            background: var(--text-secondary);
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .auth-switch {
-            text-align: center;
-            margin-top: 1.5rem;
-            color: var(--text-secondary);
-        }
-
-        .auth-switch a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .auth-switch a:hover {
-            color: var(--accent-hover);
-        }
-
-        .error-message {
-            color: var(--error);
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        .success-message {
-            color: var(--success);
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        .floating-circles {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--accent), transparent);
-            animation: float 15s infinite linear;
-            opacity: 0.1;
-        }
-
-        .circle:nth-child(1) {
-            width: 200px;
-            height: 200px;
-            left: -100px;
-            top: 10%;
-            animation-delay: 0s;
-        }
-
-        .circle:nth-child(2) {
-            width: 150px;
-            height: 150px;
-            right: -75px;
-            top: 30%;
-            animation-delay: -5s;
-        }
-
-        .circle:nth-child(3) {
-            width: 300px;
-            height: 300px;
-            left: 50%;
-            bottom: -150px;
-            animation-delay: -10s;
-        }
-
-        .form-container {
-            display: none;
-        }
-
-        .form-container.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                filter: drop-shadow(0 0 10px rgba(255, 69, 0, 0.3));
-            }
-            50% {
-                filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.5));
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg);
-            }
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 2rem;
+        .btn {
+            padding: 0.75rem 1.5rem;
             border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-login:hover {
+            background-color: var(--accent);
             color: white;
-            font-weight: 500;
-            transform: translateX(150%);
+        }
+
+        .btn-register {
+            background-color: var(--accent);
+            color: white;
+            border: 2px solid var(--accent);
+        }
+
+        .btn-register:hover {
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 5%;
+            gap: 3rem;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #FF4500, #FF6B00, #FF8533, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-image {
+            max-width: 500px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 5rem 5%;
+            background-color: var(--secondary-bg);
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 300px;
             transition: transform 0.3s ease;
-            z-index: 1000;
         }
 
-        .notification.success {
-            background: var(--success);
+        .feature-card:hover {
+            transform: translateY(-10px);
         }
 
-        .notification.error {
-            background: var(--error);
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
         }
 
-        .notification.show {
-            transform: translateX(0);
+        .feature-title {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+        }
+
+        footer {
+            background-color: var(--secondary-bg);
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-image {
+                max-width: 100%;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="floating-circles">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-    </div>
-    
-    <video class="background-video" autoplay loop muted playsinline>
-        <source src="/api/placeholder/1920/1080" type="video/mp4">
-    </video>
-
-    <div class="notification" id="notification"></div>
-
-    <div class="auth-container">
-        <div class="logo-container">
-            <h1 class="logo-text">ANIME GALAXI</h1>
-            <p style="color: var(--text-secondary);" id="authMessage">¡Bienvenido de vuelta!</p>
+    <nav class="navbar">
+        <div class="logo">Anime Galaxi</div>
+        <div class="nav-buttons">
+            <a href="login.html" class="btn btn-login">Iniciar Sesión</a>
+            <a href="login.html" class="btn btn-register">Registrarse</a>
         </div>
+    </nav>
 
-        <!-- Login Form -->
-        <form id="loginForm" class="form-container active">
-            <div class="form-group">
-                <i class="fas fa-user input-icon"></i>
-                <input type="text" class="form-input" name="username" placeholder="Usuario o Email" required>
-                <div class="error-message"></div>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Descubre el Universo del Anime</h1>
+            <p class="hero-description">
+                Sumérgete en un mundo de historias increíbles, personajes únicos y experiencias cinematográficas. 
+                Anime Galaxi te ofrece la mejor selección de anime, actualizaciones en tiempo real y una comunidad apasionada.
+            </p>
+            <div class="nav-buttons">
+                <a href="login.html" class="btn btn-login">Explorar Ahora</a>
+                <a href="login.html" class="btn btn-register">Crear Cuenta</a>
             </div>
+        </div>
+        <img src="https://erikstore.com/blog/wp-content/uploads/2024/06/MEJORES-ANIMES-DE-TODOS-LOS-TIEMPOS.jpg" alt="Anime Illustration" class="hero-image">
+    </section>
 
-            <div class="form-group">
-                <i class="fas fa-lock input-icon"></i>
-                <input type="password" class="form-input" name="password" placeholder="Contraseña" required>
-                <i class="fas fa-eye password-toggle"></i>
-                <div class="error-message"></div>
-            </div>
+    <section class="features">
+        <div class="feature-card">
+            <i class="fas fa-film feature-icon"></i>
+            <h3 class="feature-title">Catálogo Extenso</h3>
+            <p class="feature-description">Explora miles de series de anime, desde clásicos hasta los últimos lanzamientos.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-calendar feature-icon"></i>
+            <h3 class="feature-title">Calendario de Estrenos</h3>
+            <p class="feature-description">Mantente al día con los próximos estrenos y temporadas de tus series favoritas.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-heart feature-icon"></i>
+            <h3 class="feature-title">Favoritos</h3>
+            <p class="feature-description">Guarda tus series favoritas y recibe notificaciones de nuevos episodios.</p>
+        </div>
+    </section>
 
-            <button type="submit" class="submit-btn">Iniciar Sesión</button>
-
-            <div class="auth-switch">
-                ¿No tienes una cuenta? <a onclick="toggleForm('register')">Regístrate aquí</a>
-            </div>
-        </form>
-
-        <!-- Registration Form -->
-        <form id="registerForm" class="form-container">
-            <div class="form-group">
-                <i class="fas fa-user input-icon"></i>
-                <input type="text" class="form-input" name="username" placeholder="Usuario" required>
-                <div class="error-message"></div>
-            </div>
-
-            <div class="form-group">
-                <i class="fas fa-envelope input-icon"></i>
-                <input type="email" class="form-input" name="email" placeholder="Email" required>
-                <div class="error-message"></div>
-            </div>
-
-            <div class="form-group">
-                <i class="fas fa-lock input-icon"></i>
-                <input type="password" class="form-input" name="password" placeholder="Contraseña" required>
-                <i class="fas fa-eye password-toggle"></i>
-                <div class="error-message"></div>
-            </div>
-
-            <div class="form-group">
-                <i class="fas fa-lock input-icon"></i>
-                <input type="password" class="form-input" name="confirmPassword" placeholder="Confirmar Contraseña" required>
-                <i class="fas fa-eye password-toggle"></i>
-                <div class="error-message"></div>
-            </div>
-
-            <button type="submit" class="submit-btn">Registrarse</button>
-
-            <div class="auth-switch">
-                ¿Ya tienes una cuenta? <a onclick="toggleForm('login')">Inicia sesión aquí</a>
-            </div>
-        </form>
-    </div>
-
-    <script>
-        // User Management System
-        class UserManager {
-            constructor() {
-                this.users = JSON.parse(localStorage.getItem('users')) || [];
-            }
-
-            saveUsers() {
-                localStorage.setItem('users', JSON.stringify(this.users));
-            }
-
-            registerUser(username, email, password) {
-                // Check if username or email already exists
-                if (this.users.some(user => user.username === username)) {
-                    throw new Error('El nombre de usuario ya está en uso');
-                }
-                if (this.users.some(user => user.email === email)) {
-                    throw new Error('El email ya está registrado');
-                }
-
-                // Create new user
-                const user = {
-                    id: Date.now(),
-                    username,
-                    email,
-                    password: this.hashPassword(password), // In a real app, use proper password hashing
-                    createdAt: new Date().toISOString()
-                };
-
-                this.users.push(user);
-                this.saveUsers();
-                return user;
-            }
-
-            loginUser(usernameOrEmail, password) {
-                const user = this.users.find(
-                    user => (user.username === usernameOrEmail || user.email === usernameOrEmail)
-                );
-
-                if (!user || user.password !== this.hashPassword(password)) {
-                    throw new Error('Usuario o contraseña incorrectos');
-                }
-
-                // Set current user in session
-                this.setCurrentUser(user);
-                return user;
-            }
-
-            hashPassword(password) {
-                // In a real app, use proper password hashing
-                return password; // This is just for demo purposes
-            }
-
-            setCurrentUser(user) {
-                const { password, ...safeUser } = user;
-                localStorage.setItem('currentUser', JSON.stringify(safeUser));
-            }
-
-            getCurrentUser() {
-                return JSON.parse(localStorage.getItem('currentUser'));
-            }
-
-            logout() {
-                localStorage.removeItem('currentUser');
-            }
-        }
-
-        // Initialize User Manager
-        const userManager = new UserManager();
-
-        // Form Management
-        function toggleForm(formType) {
-            const loginForm = document.getElementById('loginForm');
-            const registerForm = document.getElementById('registerForm');
-            const authMessage = document.getElementById('authMessage');
-
-            if (formType === 'login') {
-                loginForm.classList.add('active');
-                registerForm.classList.remove('active');
-                authMessage.textContent = '¡Bienvenido de vuelta!';
-            } else {
-                loginForm.classList.remove('active');
-                registerForm.classList.add('active');
-                authMessage.textContent = '¡Únete a nuestra comunidad!';
-            }
-        }
-
-        // Password Toggle
-        document.querySelectorAll('.password-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function() {
-                const input = this.previousElementSibling;
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    this.classList.remove('fa-eye');
-                    this.classList.add('fa-eye-slash');
-                } else {
-                    input.type = 'password';
-                    this.classList.remove('fa-eye-slash');
-                    this.classList.add('fa-eye');
-                }
-            });
-        });
-
-        // Notification System
-        function showNotification(message, type) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.classList.add('show');
-
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-// Form Validation
-        function validatePassword(password) {
-            if (password.length < 8) {
-                return 'La contraseña debe tener al menos 8 caracteres';
-            }
-            if (!/[A-Z]/.test(password)) {
-                return 'La contraseña debe contener al menos una mayúscula';
-            }
-            if (!/[a-z]/.test(password)) {
-                return 'La contraseña debe contener al menos una minúscula';
-            }
-            if (!/[0-9]/.test(password)) {
-                return 'La contraseña debe contener al menos un número';
-            }
-            return null;
-        }
-
-        function validateEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                return 'Por favor introduce un email válido';
-            }
-            return null;
-        }
-
-        function validateUsername(username) {
-            if (username.length < 3) {
-                return 'El nombre de usuario debe tener al menos 3 caracteres';
-            }
-            if (!/^[a-zA-Z0-9_]+$/.test(username)) {
-                return 'El nombre de usuario solo puede contener letras, números y guiones bajos';
-            }
-            return null;
-        }
-
-        function showError(input, message) {
-            const errorDiv = input.nextElementSibling;
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
-            input.style.borderColor = 'var(--error)';
-        }
-
-        function clearError(input) {
-            const errorDiv = input.nextElementSibling;
-            errorDiv.style.display = 'none';
-            input.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-        }
-
-        // Form Submission Handlers
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const usernameInput = this.querySelector('[name="username"]');
-            const passwordInput = this.querySelector('[name="password"]');
-            
-            // Clear previous errors
-            clearError(usernameInput);
-            clearError(passwordInput);
-            
-            try {
-                const user = userManager.loginUser(usernameInput.value, passwordInput.value);
-                showNotification('¡Inicio de sesión exitoso!', 'success');
-                
-                // Redirect to home page after successful login
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1500);
-            } catch (error) {
-                showNotification(error.message, 'error');
-            }
-        });
-
-        document.getElementById('registerForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const usernameInput = this.querySelector('[name="username"]');
-            const emailInput = this.querySelector('[name="email"]');
-            const passwordInput = this.querySelector('[name="password"]');
-            const confirmPasswordInput = this.querySelector('[name="confirmPassword"]');
-            
-            // Clear previous errors
-            clearError(usernameInput);
-            clearError(emailInput);
-            clearError(passwordInput);
-            clearError(confirmPasswordInput);
-            
-            // Validate inputs
-            const usernameError = validateUsername(usernameInput.value);
-            if (usernameError) {
-                showError(usernameInput, usernameError);
-                return;
-            }
-            
-            const emailError = validateEmail(emailInput.value);
-            if (emailError) {
-                showError(emailInput, emailError);
-                return;
-            }
-            
-            const passwordError = validatePassword(passwordInput.value);
-            if (passwordError) {
-                showError(passwordInput, passwordError);
-                return;
-            }
-            
-            if (passwordInput.value !== confirmPasswordInput.value) {
-                showError(confirmPasswordInput, 'Las contraseñas no coinciden');
-                return;
-            }
-            
-            try {
-                const user = userManager.registerUser(
-                    usernameInput.value,
-                    emailInput.value,
-                    passwordInput.value
-                );
-                
-                showNotification('¡Registro exitoso! Redirigiendo al inicio de sesión...', 'success');
-                
-                // Switch to login form after successful registration
-                setTimeout(() => {
-                    toggleForm('login');
-                    this.reset();
-                }, 1500);
-            } catch (error) {
-                showNotification(error.message, 'error');
-            }
-        });
-
-        // Input validation on blur
-        document.querySelectorAll('.form-input').forEach(input => {
-            input.addEventListener('blur', function() {
-                let error = null;
-                
-                switch(this.name) {
-                    case 'username':
-                        error = validateUsername(this.value);
-                        break;
-                    case 'email':
-                        error = validateEmail(this.value);
-                        break;
-                    case 'password':
-                        error = validatePassword(this.value);
-                        break;
-                    case 'confirmPassword':
-                        const passwordInput = this.form.querySelector('[name="password"]');
-                        if (this.value !== passwordInput.value) {
-                            error = 'Las contraseñas no coinciden';
-                        }
-                        break;
-                }
-                
-                if (error) {
-                    showError(this, error);
-                } else {
-                    clearError(this);
-                }
-            });
-            
-            // Clear error on focus
-            input.addEventListener('focus', function() {
-                clearError(this);
-            });
-        });
-
-        // Check if user is already logged in
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentUser = userManager.getCurrentUser();
-            if (currentUser) {
-                window.location.href = 'index.html';
-            }
-        });
-    </script>
+    <footer>
+        <p>&copy; 2024 Anime Galaxi. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>
