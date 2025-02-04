@@ -17,6 +17,7 @@
             --accent-hover: #FF6B00;
             --error: #ff4444;
             --success: #00C851;
+            --input-bg: rgba(27, 32, 50, 0.7);
         }
 
         * {
@@ -34,6 +35,7 @@
             background: var(--primary-bg);
             position: relative;
             overflow: hidden;
+            padding: 1rem;
         }
 
         .background-video {
@@ -51,23 +53,32 @@
             position: relative;
             z-index: 2;
             background: rgba(27, 32, 50, 0.95);
-            padding: 2rem;
-            border-radius: 20px;
+            padding: 2.5rem;
+            border-radius: 24px;
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             animation: fadeIn 0.5s ease-out;
+            transform: translateZ(0);
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 1.5rem;
+                border-radius: 20px;
+            }
         }
 
         .logo-container {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            transform: translateZ(0);
         }
 
         .logo-text {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 800;
             text-transform: uppercase;
             background: linear-gradient(45deg, #FF4500, #FF6B00, #FF8533, #FFA500);
@@ -78,6 +89,12 @@
             animation: glow 2s ease-in-out infinite;
         }
 
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 2rem;
+            }
+        }
+
         .form-group {
             margin-bottom: 1.5rem;
             position: relative;
@@ -86,18 +103,19 @@
         .form-input {
             width: 100%;
             padding: 1rem 1rem 1rem 3rem;
-            background: var(--secondary-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--input-bg);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             color: var(--text-primary);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .form-input:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.2);
+            box-shadow: 0 0 0 4px rgba(255, 69, 0, 0.2);
             outline: none;
+            transform: translateY(-2px);
         }
 
         .input-icon {
@@ -106,6 +124,11 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .form-input:focus + .input-icon {
+            color: var(--accent);
         }
 
         .password-toggle {
@@ -115,16 +138,20 @@
             transform: translateY(-50%);
             color: var(--text-secondary);
             cursor: pointer;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background: transparent;
         }
 
         .password-toggle:hover {
             color: var(--accent);
+            background: rgba(255, 69, 0, 0.1);
         }
 
         .submit-btn {
             width: 100%;
-            padding: 1rem;
+            padding: 1.2rem;
             background: var(--accent);
             color: white;
             border: none;
@@ -132,7 +159,7 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -140,6 +167,11 @@
         .submit-btn:hover {
             background: var(--accent-hover);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
         }
 
         .submit-btn:disabled {
@@ -150,20 +182,24 @@
 
         .auth-switch {
             text-align: center;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
             color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
         .auth-switch a {
             color: var(--accent);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
         }
 
         .auth-switch a:hover {
             color: var(--accent-hover);
+            background: rgba(255, 69, 0, 0.1);
         }
 
         .error-message {
@@ -171,6 +207,8 @@
             font-size: 0.875rem;
             margin-top: 0.5rem;
             display: none;
+            animation: slideDown 0.3s ease-out;
+            padding-left: 0.5rem;
         }
 
         .success-message {
@@ -178,85 +216,20 @@
             font-size: 0.875rem;
             margin-top: 0.5rem;
             display: none;
-        }
-
-        .floating-circles {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--accent), transparent);
-            animation: float 15s infinite linear;
-            opacity: 0.1;
-        }
-
-        .circle:nth-child(1) {
-            width: 200px;
-            height: 200px;
-            left: -100px;
-            top: 10%;
-            animation-delay: 0s;
-        }
-
-        .circle:nth-child(2) {
-            width: 150px;
-            height: 150px;
-            right: -75px;
-            top: 30%;
-            animation-delay: -5s;
-        }
-
-        .circle:nth-child(3) {
-            width: 300px;
-            height: 300px;
-            left: 50%;
-            bottom: -150px;
-            animation-delay: -10s;
+            animation: slideDown 0.3s ease-out;
         }
 
         .form-container {
             display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease-out;
         }
 
         .form-container.active {
             display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                filter: drop-shadow(0 0 10px rgba(255, 69, 0, 0.3));
-            }
-            50% {
-                filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.5));
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg);
-            }
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .notification {
@@ -264,12 +237,20 @@
             top: 20px;
             right: 20px;
             padding: 1rem 2rem;
-            border-radius: 8px;
+            border-radius: 12px;
             color: white;
             font-weight: 500;
             transform: translateX(150%);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notification i {
+            font-size: 1.25rem;
         }
 
         .notification.success {
@@ -283,15 +264,70 @@
         .notification.show {
             transform: translateX(0);
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.3));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.5));
+                transform: scale(1.02);
+            }
+        }
+
+        /* Mejoras para dispositivos táctiles */
+        @media (hover: none) {
+            .submit-btn:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            .form-input:focus {
+                transform: none;
+            }
+        }
+
+        /* Mejoras para pantallas grandes */
+        @media (min-width: 1200px) {
+            .auth-container {
+                max-width: 500px;
+                padding: 3rem;
+            }
+
+            .logo-text {
+                font-size: 3rem;
+            }
+
+            .form-input {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="floating-circles">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-    </div>
-    
     <video class="background-video" autoplay loop muted playsinline>
         <source src="NB4C.mp4" type="video/mp4">
     </video>
@@ -307,19 +343,21 @@
         <!-- Login Form -->
         <form id="loginForm" class="form-container active">
             <div class="form-group">
-                <i class="fas fa-user input-icon"></i>
                 <input type="text" class="form-input" name="username" placeholder="Usuario o Email" required>
+                <i class="fas fa-user input-icon"></i>
                 <div class="error-message"></div>
             </div>
 
             <div class="form-group">
-                <i class="fas fa-lock input-icon"></i>
                 <input type="password" class="form-input" name="password" placeholder="Contraseña" required>
+                <i class="fas fa-lock input-icon"></i>
                 <i class="fas fa-eye password-toggle"></i>
                 <div class="error-message"></div>
             </div>
 
-            <button type="submit" class="submit-btn">Iniciar Sesión</button>
+            <button type="submit" class="submit-btn">
+                <span>Iniciar Sesión</span>
+            </button>
 
             <div class="auth-switch">
                 ¿No tienes una cuenta? <a onclick="toggleForm('register')">Regístrate aquí</a>
@@ -329,32 +367,34 @@
         <!-- Registration Form -->
         <form id="registerForm" class="form-container">
             <div class="form-group">
-                <i class="fas fa-user input-icon"></i>
                 <input type="text" class="form-input" name="username" placeholder="Usuario" required>
+                <i class="fas fa-user input-icon"></i>
                 <div class="error-message"></div>
             </div>
 
             <div class="form-group">
-                <i class="fas fa-envelope input-icon"></i>
                 <input type="email" class="form-input" name="email" placeholder="Email" required>
+                <i class="fas fa-envelope input-icon"></i>
                 <div class="error-message"></div>
             </div>
 
             <div class="form-group">
-                <i class="fas fa-lock input-icon"></i>
                 <input type="password" class="form-input" name="password" placeholder="Contraseña" required>
+                <i class="fas fa-lock input-icon"></i>
                 <i class="fas fa-eye password-toggle"></i>
                 <div class="error-message"></div>
             </div>
 
             <div class="form-group">
-                <i class="fas fa-lock input-icon"></i>
                 <input type="password" class="form-input" name="confirmPassword" placeholder="Confirmar Contraseña" required>
+                <i class="fas fa-lock input-icon"></i>
                 <i class="fas fa-eye password-toggle"></i>
                 <div class="error-message"></div>
             </div>
 
-            <button type="submit" class="submit-btn">Registrarse</button>
+            <button type="submit" class="submit-btn">
+                <span>Registrarse</span>
+            </button>
 
             <div class="auth-switch">
                 ¿Ya tienes una cuenta? <a onclick="toggleForm('login')">Inicia sesión aquí</a>
@@ -374,7 +414,6 @@
             }
 
             registerUser(username, email, password) {
-                // Check if username or email already exists
                 if (this.users.some(user => user.username === username)) {
                     throw new Error('El nombre de usuario ya está en uso');
                 }
@@ -382,12 +421,11 @@
                     throw new Error('El email ya está registrado');
                 }
 
-                // Create new user
                 const user = {
                     id: Date.now(),
                     username,
                     email,
-                    password: this.hashPassword(password), // In a real app, use proper password hashing
+                    password: this.hashPassword(password),
                     createdAt: new Date().toISOString()
                 };
 
@@ -405,14 +443,12 @@
                     throw new Error('Usuario o contraseña incorrectos');
                 }
 
-                // Set current user in session
                 this.setCurrentUser(user);
                 return user;
             }
 
             hashPassword(password) {
-                // In a real app, use proper password hashing
-                return password; // This is just for demo purposes
+                return password; // En una aplicación real, usar hash seguro
             }
 
             setCurrentUser(user) {
@@ -429,77 +465,84 @@
             }
         }
 
-        // Initialize User Manager
         const userManager = new UserManager();
 
-        // Form Management
+// Form Management con animaciones mejoradas
         function toggleForm(formType) {
             const loginForm = document.getElementById('loginForm');
             const registerForm = document.getElementById('registerForm');
             const authMessage = document.getElementById('authMessage');
+            
+            const forms = {
+                login: { form: loginForm, message: '¡Bienvenido de vuelta!' },
+                register: { form: registerForm, message: '¡Únete a nuestra comunidad!' }
+            };
+            
+            // Animación de salida
+            document.querySelectorAll('.form-container.active').forEach(form => {
+                form.style.opacity = '0';
+                form.style.transform = 'translateY(20px)';
+            });
 
-            if (formType === 'login') {
-                loginForm.classList.add('active');
-                registerForm.classList.remove('active');
-                authMessage.textContent = '¡Bienvenido de vuelta!';
-            } else {
-                loginForm.classList.remove('active');
-                registerForm.classList.add('active');
-                authMessage.textContent = '¡Únete a nuestra comunidad!';
-            }
+            setTimeout(() => {
+                document.querySelectorAll('.form-container').forEach(form => {
+                    form.classList.remove('active');
+                });
+                
+                forms[formType].form.classList.add('active');
+                authMessage.textContent = forms[formType].message;
+                
+                // Animación de entrada
+                requestAnimationFrame(() => {
+                    forms[formType].form.style.opacity = '1';
+                    forms[formType].form.style.transform = 'translateY(0)';
+                });
+            }, 300);
         }
 
-        // Password Toggle
-        document.querySelectorAll('.password-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function() {
-                const input = this.previousElementSibling;
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    this.classList.remove('fa-eye');
-                    this.classList.add('fa-eye-slash');
-                } else {
-                    input.type = 'password';
-                    this.classList.remove('fa-eye-slash');
-                    this.classList.add('fa-eye');
-                }
-            });
-        });
-
-        // Notification System
+        // Notificación System Mejorado
         function showNotification(message, type) {
             const notification = document.getElementById('notification');
-            notification.textContent = message;
+            const icon = type === 'success' ? 'check-circle' : 'exclamation-circle';
+            
+            notification.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${message}</span>
+            `;
+            
             notification.className = `notification ${type}`;
             notification.classList.add('show');
 
+            // Efecto de desvanecimiento
             setTimeout(() => {
-                notification.classList.remove('show');
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    notification.style.opacity = '1';
+                }, 300);
             }, 3000);
         }
 
-// Form Validation
+        // Validación mejorada
         function validatePassword(password) {
-            if (password.length < 8) {
-                return 'La contraseña debe tener al menos 8 caracteres';
-            }
-            if (!/[A-Z]/.test(password)) {
-                return 'La contraseña debe contener al menos una mayúscula';
-            }
-            if (!/[a-z]/.test(password)) {
-                return 'La contraseña debe contener al menos una minúscula';
-            }
-            if (!/[0-9]/.test(password)) {
-                return 'La contraseña debe contener al menos un número';
+            const requirements = [
+                { regex: /.{8,}/, message: 'La contraseña debe tener al menos 8 caracteres' },
+                { regex: /[A-Z]/, message: 'La contraseña debe contener al menos una mayúscula' },
+                { regex: /[a-z]/, message: 'La contraseña debe contener al menos una minúscula' },
+                { regex: /[0-9]/, message: 'La contraseña debe contener al menos un número' }
+            ];
+
+            for (const requirement of requirements) {
+                if (!requirement.regex.test(password)) {
+                    return requirement.message;
+                }
             }
             return null;
         }
 
         function validateEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                return 'Por favor introduce un email válido';
-            }
-            return null;
+            return emailRegex.test(email) ? null : 'Por favor introduce un email válido';
         }
 
         function validateUsername(username) {
@@ -513,136 +556,164 @@
         }
 
         function showError(input, message) {
-            const errorDiv = input.nextElementSibling;
+            const formGroup = input.closest('.form-group');
+            const errorDiv = formGroup.querySelector('.error-message');
+            
+            // Reset de la animación
+            errorDiv.style.animation = 'none';
+            errorDiv.offsetHeight; // Trigger reflow
+            errorDiv.style.animation = null;
+            
             errorDiv.textContent = message;
             errorDiv.style.display = 'block';
             input.style.borderColor = 'var(--error)';
+            
+            // Animación del input
+            input.style.transform = 'translateX(5px)';
+            setTimeout(() => {
+                input.style.transform = 'translateX(-5px)';
+                setTimeout(() => {
+                    input.style.transform = 'translateX(0)';
+                }, 100);
+            }, 100);
         }
 
         function clearError(input) {
-            const errorDiv = input.nextElementSibling;
+            const formGroup = input.closest('.form-group');
+            const errorDiv = formGroup.querySelector('.error-message');
             errorDiv.style.display = 'none';
             input.style.borderColor = 'rgba(255, 255, 255, 0.1)';
         }
 
-        // Form Submission Handlers
+        // Manejo mejorado de contraseña
+        document.querySelectorAll('.password-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const input = this.previousElementSibling.previousElementSibling;
+                const currentType = input.type;
+                
+                // Animación del icono
+                this.style.transform = 'translateY(-50%) scale(0.8)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-50%) scale(1)';
+                }, 100);
+                
+                input.type = currentType === 'password' ? 'text' : 'password';
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+        });
+
+        // Event Listeners Mejorados
+        document.querySelectorAll('.form-input').forEach(input => {
+            let debounceTimeout;
+
+            input.addEventListener('input', function() {
+                clearTimeout(debounceTimeout);
+                debounceTimeout = setTimeout(() => {
+                    if (this.value.trim() === '') {
+                        clearError(this);
+                        return;
+                    }
+
+                    let error = null;
+                    switch(this.name) {
+                        case 'username':
+                            error = validateUsername(this.value);
+                            break;
+                        case 'email':
+                            error = validateEmail(this.value);
+                            break;
+                        case 'password':
+                            error = validatePassword(this.value);
+                            break;
+                        case 'confirmPassword':
+                            const passwordInput = this.form.querySelector('[name="password"]');
+                            if (this.value !== passwordInput.value) {
+                                error = 'Las contraseñas no coinciden';
+                            }
+                            break;
+                    }
+
+                    if (error) {
+                        showError(this, error);
+                    } else {
+                        clearError(this);
+                    }
+                }, 300);
+            });
+
+            input.addEventListener('focus', function() {
+                clearError(this);
+                this.style.transform = 'translateY(-2px)';
+            });
+
+            input.addEventListener('blur', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Form Submissions
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
             const usernameInput = this.querySelector('[name="username"]');
             const passwordInput = this.querySelector('[name="password"]');
-            
-            // Clear previous errors
-            clearError(usernameInput);
-            clearError(passwordInput);
             
             try {
                 const user = userManager.loginUser(usernameInput.value, passwordInput.value);
                 showNotification('¡Inicio de sesión exitoso!', 'success');
                 
-                // Redirect to home page after successful login
                 setTimeout(() => {
                     window.location.href = 'home.html';
                 }, 1500);
             } catch (error) {
                 showNotification(error.message, 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Iniciar Sesión</span>';
             }
         });
 
         document.getElementById('registerForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const usernameInput = this.querySelector('[name="username"]');
-            const emailInput = this.querySelector('[name="email"]');
-            const passwordInput = this.querySelector('[name="password"]');
-            const confirmPasswordInput = this.querySelector('[name="confirmPassword"]');
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
             
-            // Clear previous errors
-            clearError(usernameInput);
-            clearError(emailInput);
-            clearError(passwordInput);
-            clearError(confirmPasswordInput);
-            
-            // Validate inputs
-            const usernameError = validateUsername(usernameInput.value);
-            if (usernameError) {
-                showError(usernameInput, usernameError);
-                return;
-            }
-            
-            const emailError = validateEmail(emailInput.value);
-            if (emailError) {
-                showError(emailInput, emailError);
-                return;
-            }
-            
-            const passwordError = validatePassword(passwordInput.value);
-            if (passwordError) {
-                showError(passwordInput, passwordError);
-                return;
-            }
-            
-            if (passwordInput.value !== confirmPasswordInput.value) {
-                showError(confirmPasswordInput, 'Las contraseñas no coinciden');
-                return;
-            }
+            const inputs = {
+                username: this.querySelector('[name="username"]'),
+                email: this.querySelector('[name="email"]'),
+                password: this.querySelector('[name="password"]'),
+                confirmPassword: this.querySelector('[name="confirmPassword"]')
+            };
             
             try {
                 const user = userManager.registerUser(
-                    usernameInput.value,
-                    emailInput.value,
-                    passwordInput.value
+                    inputs.username.value,
+                    inputs.email.value,
+                    inputs.password.value
                 );
                 
                 showNotification('¡Registro exitoso! Redirigiendo al inicio de sesión...', 'success');
                 
-                // Switch to login form after successful registration
                 setTimeout(() => {
                     toggleForm('login');
                     this.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span>Registrarse</span>';
                 }, 1500);
             } catch (error) {
                 showNotification(error.message, 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Registrarse</span>';
             }
         });
 
-        // Input validation on blur
-        document.querySelectorAll('.form-input').forEach(input => {
-            input.addEventListener('blur', function() {
-                let error = null;
-                
-                switch(this.name) {
-                    case 'username':
-                        error = validateUsername(this.value);
-                        break;
-                    case 'email':
-                        error = validateEmail(this.value);
-                        break;
-                    case 'password':
-                        error = validatePassword(this.value);
-                        break;
-                    case 'confirmPassword':
-                        const passwordInput = this.form.querySelector('[name="password"]');
-                        if (this.value !== passwordInput.value) {
-                            error = 'Las contraseñas no coinciden';
-                        }
-                        break;
-                }
-                
-                if (error) {
-                    showError(this, error);
-                } else {
-                    clearError(this);
-                }
-            });
-            
-            // Clear error on focus
-            input.addEventListener('focus', function() {
-                clearError(this);
-            });
-        });
-
-        // Check if user is already logged in
+        // Verificación de usuario logueado
         document.addEventListener('DOMContentLoaded', function() {
             const currentUser = userManager.getCurrentUser();
             if (currentUser) {
