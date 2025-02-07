@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://anime-galaxi.netlify.app/</loc>
-    <lastmod>2024-01-22</lastmod>
-    <priority>1.0</priority>
-  </url>
+    <!-- Página principal -->
+    <url>
+        <loc>https://www.animegalaxi.com/</loc>
+        <lastmod>2024-02-07</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Página de catálogo -->
+    <url>
+        <loc>https://www.animegalaxi.com/catalogo</loc>
+        <lastmod>2024-02-07</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Página de estrenos -->
+    <url>
+        <loc>https://www.animegalaxi.com/estrenos</loc>
+        <lastmod>2024-02-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Página de géneros -->
+    <url>
+        <loc>https://www.animegalaxi.com/generos</loc>
+        <lastmod>2024-02-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Página de contacto -->
+    <url>
+        <loc>https://www.animegalaxi.com/contacto</loc>
+        <lastmod>2024-02-07</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
 </urlset>
