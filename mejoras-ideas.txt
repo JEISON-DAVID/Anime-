@@ -1,0 +1,24 @@
+mejoras
+#########solucionar los error al darle click en siguiente capítulo en el reproductor (obterner los slug del capítulo)
+
+###### solucionar el problema en al darle click en volver en el reproductor (error al obtener los slug de detalles del anime osea agregar esa función)
+
+##### agregar la función de que los animes que estan en favoritos al farle click te lleven a la sesión de detalles de ese anime
+
+
+#########################################################################################################################################################################################################################################################################################################################################################################################
+
+ideas
+##### crear el error 404 personalizado
+
+###### permitir poner nombre y foto de perfil como Netflix 
+
+#########  crear el servidor y base datos con node.js y sql lite
+
+####### monetizar con anuncios 😈😈😈😈😈😈😈😈😈
+
+####### manejejar toda la logica de obtener información de la api en el backend para hacer la web mas rápida y mas estable 
+
+
+
+
