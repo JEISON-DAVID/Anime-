@@ -388,7 +388,21 @@
                     })
                 });
 
-                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const text = await response.text();
+                if (!text || text.trim() === '') {
+                    throw new Error('La API devolvió una respuesta vacía');
+                }
+
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    throw new Error(`JSON inválido: ${text.substring(0, 100)}`);
+                }
 
                 if (data.success) {
                     // Actualizar paginación
@@ -416,8 +430,11 @@
                 }
             } catch (error) {
                 console.error('Error cargando animes:', error);
-                mainGrid.innerHTML = '<div class="error-message">Error al cargar los animes. Por favor, intenta de nuevo.</div>';
-            }
+                mainGrid.innerHTML = `<div class="error-message">
+                    <p>⚠️ Error al cargar los animes.</p>
+                    <p style="font-size:0.8rem; margin-top:0.5rem; color: #aaa;">${error.message}</p>
+                    <button onclick="loadAnimes()" style="margin-top:1rem; padding:0.5rem 1rem; background:var(--accent); border:none; border-radius:8px; color:white; cursor:pointer;">Reintentar</button>
+                </div>`;
         }
 
         function showLoading(element) {
@@ -442,7 +459,7 @@
         });
 
         // Cargar animes iniciales
-        document.addEventListener('DOMContentLoaded', loadAnimes);
+        loadAnimes();
     </script>
 </body>
 </html>
